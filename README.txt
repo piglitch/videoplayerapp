@@ -10,12 +10,12 @@ cd videoplayerapp
 cd react2video
 
 Install dependencies:
-
 npm install
+
 Running the Application
 This project uses Vite as the development server. You can start the development server using the following command:
-
 npm run dev
+
 Open your browser and go to http://localhost:5173 to view the application.
 
 Building for Production
