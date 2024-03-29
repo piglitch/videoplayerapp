@@ -115,7 +115,7 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
   }
 
   return (
-    <div className='video-container' ref={videocontainer}>
+    <div className='video-container lg:m-4' ref={videocontainer}>
       {videoItem.src ? <video
         ref={videoRef}
         src={videoItem.src}

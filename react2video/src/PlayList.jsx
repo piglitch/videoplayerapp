@@ -36,7 +36,7 @@ function PlayList({ src, setSrc, playlistItems, setPlaylistItems, videoItem, set
 
   return (
     <div className="playlist pl-8">
-      <h2>Now playing</h2>
+      <h2 className='mt-4'>Now playing</h2>
       <div className="playlistcard my-4">
         <img
           src={videoItem.thumbnail}
