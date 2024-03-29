@@ -16,6 +16,7 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
   const [currVol, setCurrVol] = useState(0);
   const videoRef = useRef(null);
   const videocontainer = useRef(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const handleKey = (event) => {
@@ -105,21 +106,31 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
     }
   }
 
+  useEffect(() => {
+    setIsLoading(true);
+    if (videoItem.src) {
+      setIsLoading(false);
+    }
+  }, [videoItem.src]);
+
   return (
     <div className='video-container' ref={videocontainer}>
-      {videoItem.src ? <video
-        ref={videoRef}
-        src={videoItem.src}
-        autoPlay
-        onTimeUpdate={handleTimeUpdate}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => gotoNextVid()} 
-        onLoadedMetadata={() => {
-          setDuration((videoRef.current.duration / 60).toFixed(2));
-        }}       
-      /> : <div className='video-container'>Loading...</div>
-      }
+      {isLoading ? (
+        <div className='loading-text'>Loading...</div>
+      ) : (
+        <video
+          ref={videoRef}
+          src={videoItem.src}
+          autoPlay
+          onTimeUpdate={handleTimeUpdate}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onEnded={() => gotoNextVid()} 
+          onLoadedMetadata={() => {
+            setDuration((videoRef.current.duration / 60).toFixed(2));
+          }}       
+        />
+      )}
       <div className='videocontroller h-14 pl-4 py-2 flex justify-start space-x-5 bg-teal-600'>
         <button className='text-xl my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
         <button><SkipNextIcon fontSize='large' onClick={() => gotoNextVid()} /></button>
