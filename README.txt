@@ -1,4 +1,5 @@
 Video Player App
+Live website is available at: https://videoplayerapp.vercel.app/
 This project provides a comprehensive video player component for React applications. It includes features such as video playback, playlist management, and search functionality.
 
 Installation
