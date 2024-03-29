@@ -118,7 +118,7 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
         onLoadedMetadata={() => {
           setDuration((videoRef.current.duration / 60).toFixed(2));
         }}       
-      /> : <div>Loading...</div>
+      /> : <div className='video-container'>Loading...</div>
       }
       <div className='videocontroller h-14 pl-4 py-2 flex justify-start space-x-5 bg-teal-600'>
         <button className='text-xl my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
