@@ -30,13 +30,13 @@ const Navbar = ({ playlistItems, setVideoItem }) => {
   };
 
   return (
-    <nav className="navbar flex justify-around bg-teal-600 p-4 text-black">
+    <nav className="navbar flex justify-around bg-teal-600 p-4 text-black space-x-1">
       <div 
         className='md:ml-10 max-w-max my-auto text cursor-pointer font-extrabold text-xl' 
         onClick={() => {window.location.reload()}}>
           Play Da Clip
       </div>
-      <div className="container mx-auto relative max-w-96">
+      <div className="container my-auto mx-auto relative max-w-96">
         <input
           type="text"
           placeholder="Search videos..."

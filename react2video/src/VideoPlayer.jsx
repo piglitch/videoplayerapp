@@ -130,7 +130,7 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
         }}       
       /> : <div className='video-container'>Loading...</div>
       }
-      <div className='videocontroller h-14 pl-4 py-2 flex justify-start space-x-5 bg-teal-600'>
+      <div className='videocontroller h-14 md:pl-4 py-2 flex justify-start md:space-x-5 bg-teal-600'>
         <button className='text-xl my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
         <button><SkipNextIcon fontSize='large' onClick={() => gotoNextVid()} /></button>
         <input
@@ -138,23 +138,14 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
           value={currentTime}
           max={duration}
           onChange={handleSeek}
-          className='my-auto'
+          className='my-auto w-10 lg:w-max'
         />
         {duration > 0 && (
-          <span className='w-28 my-auto text-sm'>{(currentTime / 60).toFixed(2)} / {(duration / 60).toFixed(2)}</span>
+          <span className='w-max mx-auto my-auto text-xs md:text-lg'>{(currentTime / 60).toFixed(2)}/{(duration / 60).toFixed(2)}</span>
         )}        
         <div className='text-sm w-max cursor-pointer my-auto' onClick={() => toggleAutoplay()}>
           {autoPlay ? 'Autoplay 🔴' : 'Autoplay 🟢'}
         </div>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          className='my-auto'
-        />
         {volume > 0 ? (
           <VolumeUpIcon className='cursor-pointer my-auto' onClick={()=> {
             setVolume(0);
@@ -168,7 +159,16 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
               console.log(volume, currVol);
             }} />
         )}
-        <select className='bg-transparent cursor-pointer my-auto' onChange={(e) => handlePlaybackSpeed(parseFloat(e.target.value))}>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className='my-auto w-10 lg:w-max'
+        />
+        <select className='bg-transparent cursor-pointer my-auto text-sm' onChange={(e) => handlePlaybackSpeed(parseFloat(e.target.value))}>
           <option className='text-black' value="0.5">🐌</option>
           <option className='text-black' value="1" selected>1x</option>
           <option className='text-black' value="1.5">1.5x</option>
