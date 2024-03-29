@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import image1 from './assets/image1.png';
 
 function PlayList({ src, setSrc, playlistItems, setPlaylistItems, videoItem, setVideoItem }) {
   const [draggedItem, setDraggedItem] = useState(null);
