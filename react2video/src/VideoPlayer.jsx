@@ -14,9 +14,9 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1); // Initial volume set to 100%
   const [currVol, setCurrVol] = useState(0);
+  const [autoPlay, setAutoplay] = useState(false);
   const videoRef = useRef(null);
   const videocontainer = useRef(null);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const handleKey = (event) => {
@@ -106,31 +106,30 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
     }
   }
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (videoItem.src) {
-      setIsLoading(false);
+  const toggleAutoplay = () => {
+    if (autoPlay) {
+      setAutoplay(false)
+      return;
     }
-  }, [videoItem.src]);
+    setAutoplay(true);
+  }
 
   return (
     <div className='video-container' ref={videocontainer}>
-      {isLoading ? (
-        <div className='loading-text'>Loading...</div>
-      ) : (
-        <video
-          ref={videoRef}
-          src={videoItem.src}
-          autoPlay
-          onTimeUpdate={handleTimeUpdate}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-          onEnded={() => gotoNextVid()} 
-          onLoadedMetadata={() => {
-            setDuration((videoRef.current.duration / 60).toFixed(2));
-          }}       
-        />
-      )}
+      {videoItem.src ? <video
+        ref={videoRef}
+        src={videoItem.src}
+        autoPlay
+        loop={autoPlay}
+        onTimeUpdate={handleTimeUpdate}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => gotoNextVid()} 
+        onLoadedMetadata={() => {
+          setDuration((videoRef.current.duration / 60).toFixed(2));
+        }}       
+      /> : <div className='video-container'>Loading...</div>
+      }
       <div className='videocontroller h-14 pl-4 py-2 flex justify-start space-x-5 bg-teal-600'>
         <button className='text-xl my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
         <button><SkipNextIcon fontSize='large' onClick={() => gotoNextVid()} /></button>
@@ -143,7 +142,10 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
         />
         {duration > 0 && (
           <span className='w-28 my-auto text-sm'>{(currentTime / 60).toFixed(2)} / {(duration / 60).toFixed(2)}</span>
-        )}
+        )}        
+        <div className='text-sm w-max cursor-pointer my-auto' onClick={() => toggleAutoplay()}>
+          {autoPlay ? 'Autoplay 🔴' : 'Autoplay 🟢'}
+        </div>
         <input
           type="range"
           min="0"
