@@ -130,8 +130,8 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
         }}       
       /> : <div className='video-container'>Loading...</div>
       }
-      <div className='videocontroller h-14 md:pl-4 py-2 flex justify-start md:space-x-5 bg-teal-600'>
-        <button className='text-xl my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
+      <div className='videocontroller h-14 md:pl-4 py-2 flex justify-center space-x-1 md:space-x-5 bg-teal-600'>
+        <button className='my-auto' onClick={togglePlay}>{isPlaying ? <PauseIcon fontSize='large' /> : <PlayArrowIcon fontSize='large' />}</button>
         <button><SkipNextIcon fontSize='large' onClick={() => gotoNextVid()} /></button>
         <input
           type="range"
@@ -143,7 +143,7 @@ const VideoPlayer = ({ src, setSrc, playlistItems, videoItem, setVideoItem }) =>
         {duration > 0 && (
           <span className='w-max mx-auto my-auto text-xs md:text-lg'>{(currentTime / 60).toFixed(2)}/{(duration / 60).toFixed(2)}</span>
         )}        
-        <div className='text-sm w-max cursor-pointer my-auto' onClick={() => toggleAutoplay()}>
+        <div className='text-xs w-max cursor-pointer my-auto md:text-lg' onClick={() => toggleAutoplay()}>
           {autoPlay ? 'Autoplay 🔴' : 'Autoplay 🟢'}
         </div>
         {volume > 0 ? (
